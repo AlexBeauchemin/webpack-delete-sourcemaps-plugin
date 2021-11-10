@@ -1,0 +1,47 @@
+{
+  "name": "webpack-delete-sourcemaps-plugin",
+  "version": "0.1.0",
+  "description": "Webpack plugin to delete sourcemaps files at the end of the build",
+  "main": "index.js",
+  "scripts": {
+    "build": "tsc",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/AlexBeauchemin/webpack-delete-sourcemaps-plugin.git"
+  },
+  "keywords": [
+    "webpack",
+    "webpack5",
+    "sourcemap",
+    "sentry",
+    "nextjs",
+    "next",
+    "plugin"
+  ],
+  "author": {
+    "name": "Alex Beauchemin",
+    "email": "alexbeauchemin01@gmail.com"
+  },
+  "engines": {
+    "node": ">=16.13",
+    "npm": ">=8.1"
+  },
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/AlexBeauchemin/webpack-delete-sourcemaps-plugin/issues"
+  },
+  "homepage": "https://github.com/AlexBeauchemin/webpack-delete-sourcemaps-plugin#readme",
+  "devDependencies": {
+    "@types/fs-extra": "^9.0.13",
+    "@types/node": "^16.11.7",
+    "typescript": "^4.4.4"
+  },
+  "dependencies": {
+    "fs-extra": "^10.0.0"
+  },
+  "optionalDependencies": {
+    "webpack": "^5.63.0"
+  }
+}
