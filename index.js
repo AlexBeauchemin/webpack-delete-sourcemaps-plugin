@@ -50,7 +50,13 @@ var DeleteSourceMapsPlugin = /** @class */ (function () {
     }
     DeleteSourceMapsPlugin.prototype.apply = function (compiler) {
         var _this = this;
-        compiler.hooks.done.tapPromise('RemoveSourceMaps', function (stats) { return __awaiter(_this, void 0, void 0, function () {
+        compiler.hooks.environment.tap('DeleteSourceMaps', function () {
+            // sentry's config currently overrides the devtool value, so we can't set it to hidden-source-map easily
+            // see: https://github.com/getsentry/sentry-javascript/issues/3549
+            compiler.options.devtool =
+                compiler.options.name === 'server' ? false : 'hidden-source-map';
+        });
+        compiler.hooks.done.tapPromise('DeleteSourceMaps', function (stats) { return __awaiter(_this, void 0, void 0, function () {
             var compilation, outputPath_1, promises, env, err_1;
             return __generator(this, function (_a) {
                 switch (_a.label) {

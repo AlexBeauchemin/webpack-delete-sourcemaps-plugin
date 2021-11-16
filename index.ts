@@ -10,7 +10,13 @@ export class DeleteSourceMapsPlugin implements WebpackPluginInstance {
   }
 
   apply(compiler: Compiler) {
-    compiler.hooks.done.tapPromise('RemoveSourceMaps', async (stats) => {
+    compiler.hooks.environment.tap('DeleteSourceMaps', () => {
+      // sentry's config currently overrides the devtool value, so we can't set it to hidden-source-map easily
+      // see: https://github.com/getsentry/sentry-javascript/issues/3549
+      compiler.options.devtool =
+        compiler.options.name === 'server' ? false : 'hidden-source-map'
+    })
+    compiler.hooks.done.tapPromise('DeleteSourceMaps', async (stats) => {
       try {
         const { compilation } = stats
         const outputPath = compilation.outputOptions.path

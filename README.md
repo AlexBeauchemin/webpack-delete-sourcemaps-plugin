@@ -35,7 +35,6 @@ const { DeleteSourceMapsPlugin } = require('webpack-delete-sourcemaps-plugin');
 {
   // ...
   webpack: (config, { isServer }) => {
-    config.devtool = 'hidden-source-map' // optional, [more info](#hidden-source-map)
     config.plugins.push(new DeleteSourceMapsPlugin({ isServer }))
     return config
   }
@@ -46,8 +45,11 @@ const { DeleteSourceMapsPlugin } = require('webpack-delete-sourcemaps-plugin');
 
 By generating the sourcemaps and then removing them, it will keep the sourcemap reference in the .js even if it's removed, which can cause the browser to call those and generate 404. To avoid this, we can set the devtool value to `hidden-source-map` 
 
+For nextjs config using `withSentryConfig`, we can't set the devtool value to hidden-source-map as it's overriden by the sentry config wrapper, this plugin will take care of overriding the devtool value to set it it `hidden-source-map` for the client build (and will set it to false for the server build)
+
 more info: https://webpack.js.org/configuration/devtool/#production
 based on that thread: https://github.com/getsentry/sentry-webpack-plugin/issues/56
+sentry issue with implemented solution: https://github.com/getsentry/sentry-javascript/issues/3549#issuecomment-954552144
 
 
 
