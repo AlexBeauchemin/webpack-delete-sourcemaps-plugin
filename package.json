@@ -1,11 +1,11 @@
 {
   "name": "webpack-delete-sourcemaps-plugin",
-  "version": "0.1.0",
+  "version": "1.0.0",
   "description": "Webpack plugin to delete sourcemaps files at the end of the build",
   "main": "index.js",
   "scripts": {
     "build": "tsc",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"no test specified\" && exit"
   },
   "repository": {
     "type": "git",
@@ -25,8 +25,7 @@
     "email": "alexbeauchemin01@gmail.com"
   },
   "engines": {
-    "node": ">=16.13",
-    "npm": ">=8.1"
+    "node": ">=4.0.0"
   },
   "license": "MIT",
   "bugs": {
