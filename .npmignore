@@ -1,4 +1,6 @@
 .editorconfig
+.github
 .nvmrc
 index.ts
+package-version-check.js
 tsconfig.json
