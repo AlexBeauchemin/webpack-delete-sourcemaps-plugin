@@ -44,7 +44,7 @@ var path_1 = __importDefault(require("path"));
 var fs_extra_1 = __importDefault(require("fs-extra"));
 var DeleteSourceMapsPlugin = /** @class */ (function () {
     function DeleteSourceMapsPlugin(_a) {
-        var _b = _a.isServer, isServer = _b === void 0 ? null : _b;
+        var _b = _a === void 0 ? { isServer: null } : _a, isServer = _b.isServer;
         this.isServer = false;
         this.isServer = isServer;
     }

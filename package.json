@@ -1,6 +1,6 @@
 {
   "name": "webpack-delete-sourcemaps-plugin",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "description": "Webpack plugin to delete sourcemaps files at the end of the build",
   "main": "index.js",
   "scripts": {
