@@ -13,6 +13,10 @@ I created this plugin so we can upload sourcemaps to **sentry** when using **Nex
 
 ## How to use
 
+```
+npm install webpack-delete-sourcemaps-plugin --save-dev
+``` 
+
 ```js
 const { DeleteSourceMapsPlugin } = require('webpack-delete-sourcemaps-plugin');
 

@@ -5,7 +5,7 @@ import type { Compiler, WebpackPluginInstance } from 'webpack'
 export class DeleteSourceMapsPlugin implements WebpackPluginInstance {
   readonly isServer: boolean | null = false
 
-  constructor({ isServer = null }) {
+  constructor({ isServer }: { isServer: boolean | null } = { isServer: null }) {
     this.isServer = isServer
   }
 
