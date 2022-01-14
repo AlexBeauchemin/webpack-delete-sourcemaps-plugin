@@ -1,8 +1,8 @@
 name: Release new package version
 
 on:
-  pull_request:
-    branches: [main]
+  release:
+    types: [created]
 
 jobs:
   build:
