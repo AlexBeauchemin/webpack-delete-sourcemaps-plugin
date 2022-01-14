@@ -26,7 +26,10 @@ jobs:
           registry-url: https://npm.pkg.github.com/
       - run: npm ci
       - run: npm run build
-      - run: npm publish
-        env:
-          CI: true
-          NODE_AUTH_TOKEN: ${{secrets.NPM_AUTH_TOKEN}}
+      - uses: JS-DevTools/npm-publish@v1
+        with:
+          token: ${{ secrets.NPM_AUTH_TOKEN }}
+      # - run: npm publish
+      #   env:
+      #     CI: true
+      #     NODE_AUTH_TOKEN: ${{secrets.NPM_AUTH_TOKEN}}
