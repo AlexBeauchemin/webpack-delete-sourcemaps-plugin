@@ -21,7 +21,7 @@ npm install webpack-delete-sourcemaps-plugin --save-dev
 const { DeleteSourceMapsPlugin } = require('webpack-delete-sourcemaps-plugin');
 
 module.exports = {
-  devtool: 'hidden-source-map', // optional, [more info](#hidden-source-map)
+  devtool: 'hidden-source-map', // optional, see the #hidden-source-map section for more info
   // ...
   plugins: [
     new DeleteSourceMapsPlugin()
@@ -39,7 +39,7 @@ const { DeleteSourceMapsPlugin } = require('webpack-delete-sourcemaps-plugin');
 {
   // ...
   webpack: (config, { isServer }) => {
-    config.plugins.push(new DeleteSourceMapsPlugin({ isServer }))
+    config.plugins.push(new DeleteSourceMapsPlugin({ isServer, keepServerSourcemaps: true }))
     return config
   }
 }

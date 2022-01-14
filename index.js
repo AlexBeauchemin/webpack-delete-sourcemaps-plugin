@@ -44,13 +44,20 @@ var path_1 = __importDefault(require("path"));
 var fs_extra_1 = __importDefault(require("fs-extra"));
 var DeleteSourceMapsPlugin = /** @class */ (function () {
     function DeleteSourceMapsPlugin(_a) {
-        var _b = _a === void 0 ? { isServer: null } : _a, isServer = _b.isServer;
+        var _b = _a === void 0 ? { isServer: null, keepServerSourcemaps: null } : _a, isServer = _b.isServer, keepServerSourcemaps = _b.keepServerSourcemaps;
         this.isServer = false;
+        this.keepServerSourcemaps = false;
+        if (keepServerSourcemaps && isServer === null)
+            throw new Error('You need to define the "isServer" value if you want to use "keepServerSourcemaps"');
         this.isServer = isServer;
+        this.keepServerSourcemaps = keepServerSourcemaps;
     }
     DeleteSourceMapsPlugin.prototype.apply = function (compiler) {
         var _this = this;
         compiler.hooks.environment.tap('DeleteSourceMaps', function () {
+            console.log('WEBPACK SOURCEMAPS PLUGIN environment tap', _this.isServer, _this.keepServerSourcemaps);
+            if (_this.isServer && _this.keepServerSourcemaps)
+                return;
             // sentry's config currently overrides the devtool value, so we can't set it to hidden-source-map easily
             // see: https://github.com/getsentry/sentry-javascript/issues/3549
             compiler.options.devtool =
@@ -62,6 +69,9 @@ var DeleteSourceMapsPlugin = /** @class */ (function () {
                 switch (_a.label) {
                     case 0:
                         _a.trys.push([0, 2, , 3]);
+                        console.log('WEBPACK SOURCEMAPS PLUGIN done tap', this.isServer, this.keepServerSourcemaps);
+                        if (this.isServer && this.keepServerSourcemaps)
+                            return [2 /*return*/];
                         compilation = stats.compilation;
                         outputPath_1 = compilation.outputOptions.path;
                         promises = Object
