@@ -88,9 +88,9 @@ var DeleteSourceMapsPlugin = /** @class */ (function () {
                         _a.sent();
                         env = this.isServer ? 'server' : 'client';
                         if (this.isServer === null)
-                            console.info("\u26A0\uFE0F  Deleted " + promises.length + " source map files");
+                            console.info("\u26A0\uFE0F  Deleted ".concat(promises.length, " source map files"));
                         else
-                            console.info("\u26A0\uFE0F  Deleted " + promises.length + " " + env + " source map files");
+                            console.info("\u26A0\uFE0F  Deleted ".concat(promises.length, " ").concat(env, " source map files"));
                         return [3 /*break*/, 3];
                     case 2:
                         err_1 = _a.sent();
