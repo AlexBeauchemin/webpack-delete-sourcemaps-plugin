@@ -5,21 +5,24 @@ import type { Compiler, WebpackPluginInstance } from 'webpack'
 interface ConstructorProps {
   isServer: boolean | null;
   keepServerSourcemaps: boolean | null;
+  silent: boolean | null;
 }
 
 export class DeleteSourceMapsPlugin implements WebpackPluginInstance {
   readonly isServer: boolean | null = false
   readonly keepServerSourcemaps: boolean | null = false
+  readonly silent: boolean | null = false
 
-  constructor({ isServer, keepServerSourcemaps }: ConstructorProps = { isServer: null, keepServerSourcemaps: null }) {
+  constructor({ isServer, keepServerSourcemaps, silent }: ConstructorProps = { isServer: null, keepServerSourcemaps: null, silent: true }) {
     if (keepServerSourcemaps && isServer === null) throw new Error('You need to define the "isServer" value if you want to use "keepServerSourcemaps"')
     this.isServer = isServer
     this.keepServerSourcemaps = keepServerSourcemaps
+    this.silent = silent
   }
 
   apply(compiler: Compiler) {
     compiler.hooks.environment.tap('DeleteSourceMaps', () => {
-      console.log('WEBPACK SOURCEMAPS PLUGIN environment tap', this.isServer, this.keepServerSourcemaps)
+      //console.log('WEBPACK SOURCEMAPS PLUGIN environment tap', this.isServer, this.keepServerSourcemaps)
       if (this.isServer && this.keepServerSourcemaps) return
       // sentry's config currently overrides the devtool value, so we can't set it to hidden-source-map easily
       // see: https://github.com/getsentry/sentry-javascript/issues/3549
@@ -28,7 +31,7 @@ export class DeleteSourceMapsPlugin implements WebpackPluginInstance {
     })
     compiler.hooks.done.tapPromise('DeleteSourceMaps', async (stats) => {
       try {
-        console.log('WEBPACK SOURCEMAPS PLUGIN done tap', this.isServer, this.keepServerSourcemaps)
+        //console.log('WEBPACK SOURCEMAPS PLUGIN done tap', this.isServer, this.keepServerSourcemaps)
         if (this.isServer && this.keepServerSourcemaps) return
 
         const { compilation } = stats
@@ -45,8 +48,10 @@ export class DeleteSourceMapsPlugin implements WebpackPluginInstance {
 
         const env = this.isServer ? 'server' : 'client'
 
-        if (this.isServer === null) console.info(`⚠️  Deleted ${promises.length} source map files`)
-        else console.info(`⚠️  Deleted ${promises.length} ${env} source map files`)
+        if (!this.silent) {
+          if (this.isServer === null) console.info(`⚠️  Deleted ${promises.length} source map files`)
+          else console.info(`⚠️  Deleted ${promises.length} ${env} source map files`)
+        }
       } catch (err) {
         console.warn('⚠️  DeleteSourceMapsPlugin: Error while deleting source maps after the build')
         console.error(err)
@@ -54,3 +59,4 @@ export class DeleteSourceMapsPlugin implements WebpackPluginInstance {
     })
   }
 }
+
